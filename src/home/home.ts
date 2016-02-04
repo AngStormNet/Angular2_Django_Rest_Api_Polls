@@ -27,7 +27,9 @@ export class Home {
   response: string;
   api: string;
   myName: string;
-  question_list:Object;
+  question_list: Object;
+  choice_list: Object;
+  clickedQuestion: number;
 
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
@@ -47,7 +49,10 @@ export class Home {
   }
 
   getClicked(id){
-    alert('Clicked ID' + id);
+    alert('Clicked Question Number' + id);
+    this.clickedQuestion=id;
+    
+
   }
 
 

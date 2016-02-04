@@ -4,7 +4,10 @@
     <div *ngIf="question_list">
       <h3>Please Select a Question to Answer</h3>
       <li *ngFor="#question of question_list">
-       <span><h4><a href="#/home/{{question.id}}"  (click)="getClicked(1)">Question {{question.id}}: {{question.question_text}}</a></h4></span>
+       <span><h4><a href="javascript:void(0)"  (click)="getClicked(question.id)">Question {{question.id}}: {{question.question_text}}</a></h4></span>
+        <span *ngIf="clickedQuestion == question.id">
+          This Question Clicked
+        </span>
       </li>
     </div>
 
