@@ -6,7 +6,15 @@
       <li *ngFor="#question of question_list">
        <span><h4><a href="javascript:void(0)"  (click)="getClicked(question.id)">Question {{question.id}}: {{question.question_text}}</a></h4></span>
         <span *ngIf="clickedQuestion == question.id">
-          This Question Clicked
+          <h4>Please Select a Choice</h4>
+          <div *ngFor="#choice of choice_list">
+            <li  *ngIf="choice.question == question.id">
+              <a href="javascript:void(0)" (click)="submitVote(choice.id)">{{choice.choice_text}}</a>
+               votes = {{choice.votes}}
+
+            </li>
+          </div>
+
         </span>
       </li>
     </div>

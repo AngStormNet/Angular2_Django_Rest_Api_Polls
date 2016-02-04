@@ -49,10 +49,24 @@ export class Home {
   }
 
   getClicked(id){
-    alert('Clicked Question Number' + id);
+    //alert('Clicked Question Number' + id);
     this.clickedQuestion=id;
-    
+    var url = "http://localhost:8000/choice_list/";
+    var authHeader = new Headers();
+     if (this.jwt) {
+      authHeader.append('Authorization', 'JWT ' + this.jwt);
+    }
+    this.http.get(url, {
+      headers: authHeader
+    })
+      .map(res => res.json())
+      .subscribe(choice_list => this.choice_list = choice_list);
 
+  }
+
+  submitVote(id){
+    alert("Voting for Question ID = " + id);
+    var url = "http://localhost:8000/choices/" + id + "/";
   }
 
 
