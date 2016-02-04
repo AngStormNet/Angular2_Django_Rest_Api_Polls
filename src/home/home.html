@@ -1,17 +1,15 @@
 <div>
   <div class="home jumbotron centered">
     <h1>Welcome to the angular2 Polls App!</h1>
-    <h2 *ngIf="jwt">Your JWT is:</h2>
-    <pre *ngIf="jwt" class="jwt">{{ jwt }}</pre>
-    <pre *ngIf="jwt" class="jwt"><code>{{ decodedJwt | json }}</code></pre>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
-    <h1 *ngIf="question_list">Hello</h1>
-
-    <h4 *ngIf="myName">Howdy {{myName}}</h4>
-    <div *ngIf="getQuestion_list">
-      Q_LIST
-
+    <div *ngIf="question_list">
+      <h3>Please Select a Question to Answer</h3>
+      <li *ngFor="#question of question_list">
+       <span><h4><a href="#/home/{{question.id}}"  (click)="getClicked(1)">Question {{question.id}}: {{question.question_text}}</a></h4></span>
+      </li>
     </div>
+
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
+
   </div>
 </div>
 
