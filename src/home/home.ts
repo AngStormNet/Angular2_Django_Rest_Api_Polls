@@ -64,9 +64,30 @@ export class Home {
 
   }
 
-  submitVote(id){
-    alert("Voting for Question ID = " + id);
+  submitVote(id, votes, choice_txt, question){
+    this.clickedQuestion = 0;
     var url = "http://localhost:8000/choices/" + id + "/";
+    var authHeader = new Headers();
+     if (this.jwt) {
+      authHeader.append('Authorization', 'JWT ' + this.jwt);
+      authHeader.append('Content-Type', 'application/json');
+
+    }
+    votes = votes + 1;
+    let body = JSON.stringify({ "id": id, "votes": votes, "choice_text": choice_txt, "question": question });
+    //noinspection TypeScriptValidateTypes
+    this.http.put(url, body, { headers: authHeader })
+      .subscribe(
+        response => {
+          alert("Vote Submitted\nVotes for " + choice_txt + " = " + votes + "\n Thank you for voting");
+          this.clickedQuestion = question;
+          this.router.parent.navigateByUrl('/home');
+
+        },
+        error => {
+          alert(error.text());
+          console.log(error.text());
+        })
   }
 
 

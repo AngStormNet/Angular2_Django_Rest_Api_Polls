@@ -9,7 +9,7 @@
           <h4>Please Select a Choice</h4>
           <div *ngFor="#choice of choice_list">
             <li  *ngIf="choice.question == question.id">
-              <a href="javascript:void(0)" (click)="submitVote(choice.id)">{{choice.choice_text}}</a>
+              <a href="javascript:void(0)" (click)="submitVote(choice.id, choice.votes, choice.choice_text, choice.question)">{{choice.choice_text}}</a>
                votes = {{choice.votes}}
 
             </li>
