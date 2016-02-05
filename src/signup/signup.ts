@@ -4,7 +4,7 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http } from 'angular2/http';
 import { contentHeaders } from '../common/headers';
 
-let styles   = require('./signup.css');
+
 let template = require('./signup.html');
 
 @Component({
@@ -12,21 +12,22 @@ let template = require('./signup.html');
 })
 @View({
   directives: [ RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  template: template,
-  styles: [ styles ]
+  template: template
+
 })
 export class Signup {
   constructor(public router: Router, public http: Http) {
   }
 
-  signup(event, username, password) {
+  signup(event, username, email, password) {
     event.preventDefault();
-    let body = JSON.stringify({ username, password });
-    this.http.post('http://localhost:3001/users', body, { headers: contentHeaders })
+    let body = JSON.stringify({ username: "admin", password: "plkplk123", username, email, password });
+    this.http.post('http://localhost:8000/create_user/', body, { headers: contentHeaders })
       .subscribe(
         response => {
-          localStorage.setItem('jwt', response.json().id_token);
-          this.router.parent.navigateByUrl('/home');
+          //localStorage.setItem('jwt', response.json().token);
+          alert('Username: ' + username + "Created Successfully\n Please Login")
+          this.router.parent.navigateByUrl('/login');
         },
         error => {
           alert(error.text());

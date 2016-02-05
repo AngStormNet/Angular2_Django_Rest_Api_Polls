@@ -18,8 +18,7 @@ let template = require('./home.html');
 })
 @View({
   directives: [CORE_DIRECTIVES],
-  template: template,
-  directives: [NgFor]
+  template: template
 })
 export class Home {
   jwt: string;
