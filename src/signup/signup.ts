@@ -21,7 +21,7 @@ export class Signup {
 
   signup(event, username, email, password) {
     event.preventDefault();
-    let body = JSON.stringify({ username: "admin", password: "plkplk123", username, email, password });
+    let body = JSON.stringify({ username, email, password });
     this.http.post('http://localhost:8000/create_user/', body, { headers: contentHeaders })
       .subscribe(
         response => {
