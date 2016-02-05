@@ -29,7 +29,8 @@ export class Home {
   question_list: Object;
   choice_list: Object;
   clickedQuestion: number;
-
+  add_question: boolean = false;
+  totalQuestions: number;
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
     this.jwt = localStorage.getItem('jwt');
@@ -89,6 +90,35 @@ export class Home {
         })
   }
 
+  addQuestion(num){
+    this.add_question = true;
+    this.totalQuestions = num + 1;
+  }
+
+  submitQuestions(event, question_text, choice1, choice2){
+    var authHeader = new Headers();
+     if (this.jwt) {
+      authHeader.append('Authorization', 'JWT ' + this.jwt);
+      authHeader.append('Content-Type', 'application/json');
+    }
+    event.preventDefault();
+    var id = this.totalQuestions;
+    let choice_strings = JSON.stringify({choice1, choice2});
+    let body = JSON.stringify({ question_text, choice_strings: [{choice_strings}] });
+    this.http.post('http://localhost:8000/question_list/', body, { headers: authHeader })
+      .subscribe(
+        response => {
+          //localStorage.setItem('jwt', response.json().token);
+         alert("question Added");
+         window.location.reload();
+        },
+        error => {
+          window.location.reload();
+          console.log(error.text());
+        }
+
+      );
+  }
 
   logout() {
     localStorage.removeItem('jwt');

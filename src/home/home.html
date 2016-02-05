@@ -1,9 +1,36 @@
 <div>
+  <ul>
+    <li *ngIf="question_list"><a href="javascript:void(0)" (click)="addQuestion(question_list.length)">Add Question</a></li>
+    <li><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
+    <li *ngIf="add_question"><a href="/home">View Questions</a></li>
+  </ul>
   <div class="home jumbotron centered">
-    <h1>Welcome to the angular2 Polls App!</h1>
-    <div *ngIf="question_list">
+
+    <div *ngIf="add_question">
+      <h1>Welcome to Add Questions Page</h1>
+      <form role="form" (submit)="submitQuestions($event, question_text.value, choice1.value, choice2.value)">
+        <div class="form-group">
+          <label for="question_text">Question_Text</label>
+          <input type="text" #question_text class="form-control" id="question_text" placeholder="Question Text" required>
+        </div>
+        <div class="form-group">
+          <label for="choice1">Choice 1</label>
+          <input type="text" #choice1 class="form-control" id="choice1" placeholder="Choice 1" required>
+        </div>
+        <div class="form-group">
+          <label for="choice2">Choice 2</label>
+          <input type="text" #choice2 class="form-control" id="choice2" placeholder="Choice 2" required>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+    <div *ngIf="question_list && add_question == false">
+      <h1>Welcome to the angular2 Polls App!</h1>
+
+
       <h3>Please Select a Question to Answer</h3>
       <li *ngFor="#question of question_list">
+
        <span><h4><a href="javascript:void(0)"  (click)="getClicked(question.id)">Question {{question.id}}: {{question.question_text}}</a></h4></span>
         <span *ngIf="clickedQuestion == question.id">
           <h4>Please Select a Choice</h4>
